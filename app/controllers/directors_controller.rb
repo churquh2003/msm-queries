@@ -1,10 +1,26 @@
 class DirectorsController < ApplicationController
   def index
-    @directors = Director.all
-  end
+    render ({ :template => "director_templates/list"})
+  end 
+
+  def youngest
+    @the_youngest_director = Director.where.not(dob: nil).order(dob: :asc).last
+    render ({ :template => "director_templates/youngest"})
+  end 
+
+  def oldest
+    @the_oldest_director = Director.where.not(dob: nil).order(dob: :asc).first
+    render ({ :template => "director_templates/oldest"})
+  end 
 
   def show
-    @director = Director.find(params[:id])
-    @movies = Movie.where(director_id: @director.id)
-  end
-end
+    the_id = params.fetch("the_id")
+    matching_records = Director.where({ :id => the_id})
+
+    @the_director = matching_records.at(0)
+
+
+    render ({ :template => "director_templates/details"})
+  end 
+
+end 
