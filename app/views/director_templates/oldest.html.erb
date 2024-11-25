@@ -1,0 +1,13 @@
+<h1> Eldest Director</h1>
+
+<% if @the_oldest_director %>
+  <p>
+    The eldest director in our dataset right now is 
+    <a href="/directors/<%= @the_oldest_director.id %>">
+      <%= @the_oldest_director.name %>
+    </a>, born on 
+    <%= @the_oldest_director.dob.strftime("%B %d, %Y") %>.
+  </p>
+<% else %>
+  <p>No directors with a recorded date of birth were found.</p>
+<% end %>
